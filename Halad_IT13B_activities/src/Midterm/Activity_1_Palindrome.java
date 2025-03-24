@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Activity_1_Palindrome {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {       
         Scanner a = new Scanner(System.in);
 
         System.out.println("Enter your text");
@@ -23,6 +23,5 @@ public class Activity_1_Palindrome {
         } else {
             System.out.println(" ITS NOT A PALINDROME ");
         }
-
     }
 }
