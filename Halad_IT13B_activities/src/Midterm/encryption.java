@@ -32,12 +32,12 @@ public class encryption {
                 String original = phrases[i];
                 String encrypted = encrypt(original, 6);
                 
-                // Display in console
+              
                 System.out.println((i+1) + ". Original : " + original);
                 System.out.println("   Encrypted: " + encrypted);
                 System.out.println();
                 
-                // Write to file
+              
                 myWriter.write((i+1) + ". Original : " + original + "\n");
                 myWriter.write("   Encrypted: " + encrypted + "\n\n");
             }
