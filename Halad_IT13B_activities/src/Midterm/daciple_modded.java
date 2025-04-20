@@ -112,50 +112,50 @@ public class daciple_modded {
     }
 
   
-    static void placeOrder() {
-        String[] menu = {"Burger", "Fries", "Drink"};
-        int[] prices = {50, 30, 20};
-        int[] quantities = new int[3];
+static void placeOrder() {
+    String[] menu = {"Burger", "Fries", "Drink"};
+    int[] prices = {50, 30, 20};
+    int[] quantities = new int[3];
+    String input;
 
-        while (true) {
-            System.out.println("\n=== Menu ===");
-            for (int i = 0; i < 3; i++) {
-                System.out.println((i + 1) + ". " + menu[i] + " - P" + prices[i]);
-            }
-            System.out.println("4. Exit and Show Order Summary");
-            System.out.print("Enter your choice: ");
-            String input = scanner.nextLine();
-
-            if (input.equals("4")) break;
-
-            try {
-                int choice = Integer.parseInt(input);
-                if (choice >= 1 && choice <= 3) {
-                    System.out.print("Enter quantity for " + menu[choice - 1] + ": ");
-                    int qty = Integer.parseInt(scanner.nextLine());
-                    if (qty > 0) {
-                        quantities[choice - 1] += qty;
-                    } else {
-                        System.out.println("Please enter a positive number.");
-                    }
-                } else {
-                    System.out.println("Invalid choice.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a number.");
-            }
-        }
-
-    
-        System.out.println("\n=== Order Summary ===");
-        int total = 0;
+    do {
+        System.out.println("\n=== Menu ===");
         for (int i = 0; i < 3; i++) {
-            if (quantities[i] > 0) {
-                int cost = quantities[i] * prices[i];
-                System.out.println(menu[i] + " x" + quantities[i] + " = P" + cost);
-                total += cost;
-            }
+            System.out.println((i + 1) + ". " + menu[i] + " - P" + prices[i]);
         }
-        System.out.println("Total: P" + total);
+        System.out.println("4. Exit and Show Order Summary");
+        System.out.print("Enter your choice: ");
+        input = scanner.nextLine();
+
+        try {
+            int choice = Integer.parseInt(input);
+            if (choice >= 1 && choice <= 3) {
+                System.out.print("Enter quantity for " + menu[choice - 1] + ": ");
+                int qty = Integer.parseInt(scanner.nextLine());
+                if (qty > 0) {
+                    quantities[choice - 1] += qty;
+                } else {
+                    System.out.println("Please enter a positive number.");
+                }
+            } else if (choice != 4) {
+                System.out.println("Invalid choice.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a number.");
+        }
+
+    } while (!input.equals("4"));
+
+    // Order Summary
+    System.out.println("\n=== Order Summary ===");
+    int total = 0;
+    for (int i = 0; i < 3; i++) {
+        if (quantities[i] > 0) {
+            int cost = quantities[i] * prices[i];
+            System.out.println(menu[i] + " x" + quantities[i] + " = P" + cost);
+            total += cost;
+        }
     }
+    System.out.println("Total: P" + total);
+}
 }
