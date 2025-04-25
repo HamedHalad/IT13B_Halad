@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class daciple_modded {
+
     static Scanner scanner = new Scanner(System.in);
     static final String FILE_NAME = "users.txt";
 
@@ -11,7 +12,7 @@ public class daciple_modded {
         while (true) {
             System.out.println("\n=== Fast Food Ordering System ===");
             System.out.println("1. Login");
-            System.out.println("2. Register");
+            System.out.println("2. Create an Acccount");
             System.out.print("Choose an option: ");
             String choice = scanner.nextLine();
 
@@ -20,7 +21,7 @@ public class daciple_modded {
                     placeOrder();
                     break;
                 }
-            
+
             } else if (choice.equals("2")) {
                 registerUser();
             } else {
@@ -28,7 +29,6 @@ public class daciple_modded {
             }
         }
     }
-
 
     static void registerUser() {
         System.out.print("Enter username: ");
@@ -39,16 +39,13 @@ public class daciple_modded {
 
         String encryptedPassword = encrypt(password);
 
-        try (FileWriter fw = new FileWriter(FILE_NAME, true);
-             BufferedWriter bw = new BufferedWriter(fw);
-             PrintWriter out = new PrintWriter(bw)) {
+        try (FileWriter fw = new FileWriter(FILE_NAME, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
             out.println(username + "," + encryptedPassword);
             System.out.println("Registered successfully! Please log in.");
         } catch (IOException e) {
             System.out.println("Error saving user: " + e.getMessage());
         }
     }
-
 
     static boolean loginUser() {
         System.out.print("Enter username: ");
@@ -98,7 +95,6 @@ public class daciple_modded {
         return result.toString();
     }
 
-
     static String decrypt(String password) {
         StringBuilder result = new StringBuilder();
         for (char c : password.toCharArray()) {
@@ -111,51 +107,50 @@ public class daciple_modded {
         return result.toString();
     }
 
-  
-static void placeOrder() {
-    String[] menu = {"Burger", "Fries", "Drink"};
-    int[] prices = {50, 30, 20};
-    int[] quantities = new int[3];
-    String input;
+    static void placeOrder() {
+        String[] menu = {"Burger", "Fries", "Drink", "water"};
+        int[] prices = {50, 30, 20, 10};
+        int[] quantities = new int[4];
+        String input;
 
-    do {
-        System.out.println("\n=== Menu ===");
-        for (int i = 0; i < 3; i++) {
-            System.out.println((i + 1) + ". " + menu[i] + " - P" + prices[i]);
-        }
-        System.out.println("4. Exit and Show Order Summary");
-        System.out.print("Enter your choice: ");
-        input = scanner.nextLine();
-
-        try {
-            int choice = Integer.parseInt(input);
-            if (choice >= 1 && choice <= 3) {
-                System.out.print("Enter quantity for " + menu[choice - 1] + ": ");
-                int qty = Integer.parseInt(scanner.nextLine());
-                if (qty > 0) {
-                    quantities[choice - 1] += qty;
-                } else {
-                    System.out.println("Please enter a positive number.");
-                }
-            } else if (choice != 4) {
-                System.out.println("Invalid choice.");
+        do {
+            System.out.println("\n=== Menu ===");
+            for (int i = 0; i < 4; i++) {
+                System.out.println((i + 1) + ". " + menu[i] + " - P" + prices[i]);
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter a number.");
-        }
+            System.out.println("5. Exit and Show Order Summary");
+            System.out.print("Enter your choice: ");
+            input = scanner.nextLine();
 
-    } while (!input.equals("4"));
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= 4) {
+                    System.out.print("Enter quantity  for " + menu[choice - 1] + ": ");
+                    int qty = Integer.parseInt(scanner.nextLine());
+                    if (qty > 0) {
+                        quantities[choice - 1] += qty;
+                    } else {
+                        System.out.println("Please enter a positive number.");
+                    }
+                } else if (choice != 5) {
+                    System.out.println("Invalid choice.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number.");
+            }
 
-    // Order Summary
-    System.out.println("\n=== Order Summary ===");
-    int total = 0;
-    for (int i = 0; i < 3; i++) {
-        if (quantities[i] > 0) {
-            int cost = quantities[i] * prices[i];
-            System.out.println(menu[i] + " x" + quantities[i] + " = P" + cost);
-            total += cost;
+        } while (!input.equals("5"));
+
+     
+        System.out.println("\n=== Order Summary ===");
+        int total = 0;
+        for (int i = 0; i < 4; i++) {
+            if (quantities[i] > 0) {
+                int cost = quantities[i] * prices[i];
+                System.out.println(menu[i] + " x" + quantities[i] + " = P" + cost);
+                total += cost;
+            }
         }
+        System.out.println("Total: P" + total);
     }
-    System.out.println("Total: P" + total);
-}
 }
